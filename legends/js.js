@@ -24,70 +24,7 @@ function getCookie(cname) {
   return "";
 }
 
-function setowncolor(image, own) {
-    if (own=="") {
-      image.style.backgroundColor = "red";}
-    else{
-      image.style.backgroundColor = "green";}
-    }
-    
-function handleDocumentLoad() {
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get('l');
-
-  var imageUrl = "images/legend_"+myParam+".png"; // Replace with your image URL
-  var image = document.getElementById("id1");
-  image.src = imageUrl; // Set the image source to the URL
-  image.alt = imageUrl;
-
-  var text = document.getElementById("text1");
-  getlegendname();
-
-  var increaseButton = document.getElementById("increaseButton"); //Targets div with ID increaseButton
-  var decreaseButton = document.getElementById("decreaseButton"); //Targets div with ID decreaseButton
-
-  decreaseButton.innerHTML = "<";
-  increaseButton.innerHTML = ">";
-  increaseButton.style.display = "inline";
-  decreaseButton.style.display = "inline";
-  //Event Listener
-  increaseButton.addEventListener("click", incriese); //When clicked this action is performed
-  decreaseButton.addEventListener("click", decrease); //When clicked this action is performed
-  image.addEventListener("click", own); //When clicked this action is performed
-  //Function
-  if (myParam === null) {var l=getCookie("l");if(l==""){l=1;}else{l=parseInt(l);}urlParams.set('l', l);window.location.search = urlParams.toString();}
-
-  var ownv=getCookie("own"+myParam);
-  setowncolor(image, ownv);
-  
-  
-
-
-function own() {if (ownv=="") {ownv="true";}else{ own="";}setowncolor(image, ownv);setCookie("own"+myParam, ownv);}
-
-
-
-
-function incriese() { /*This changes the background colour to a white and makes text black*/
-  if (parseInt(myParam) < 70) { 
-   urlParams.set('l', parseInt(myParam) + 1);
-   window.location.search = urlParams.toString();
-  setCookie("l", parseInt(myParam) + 1);
-  }
-}
-
-function decrease() {
-  if (parseInt(myParam) > 1) { 
-   urlParams.set('l', parseInt(myParam) - 1);
-   window.location.search = urlParams.toString();
-   setCookie("l", parseInt(myParam) - 1);
-
-  }
-}
-
-
-function getlegendname() {
+function getlegendname(myParam,text) {
 switch (myParam) {
 case "1":  text.innerHTML = "Bödvar"; break;
 case "2":  text.innerHTML = "Cassidy"; break;
@@ -163,4 +100,57 @@ case "70":  text.innerHTML = "Qinghua & Baobao"; break;
 
 }
 }
+
+function setowncolor(image, own) {
+  if (own=="") {image.style.backgroundColor = "red";}
+  else{image.style.backgroundColor = "green";}
+}
+
+function incriese(myParam) {
+  if (parseInt(myParam) < 70) { 
+   urlParams.set('l', parseInt(myParam) + 1);
+   window.location.search = urlParams.toString();
+  setCookie("l", parseInt(myParam) + 1);
+  }
+}
+
+function decrease(myParam) {
+  if (parseInt(myParam) > 1) { 
+   urlParams.set('l', parseInt(myParam) - 1);
+   window.location.search = urlParams.toString();
+   setCookie("l", parseInt(myParam) - 1);
+
+  }
+}
+    
+function handleDocumentLoad() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('l');
+  if (myParam === null) {var l=getCookie("l");if(l==""){l=1;}else{l=parseInt(l);}urlParams.set('l', l);window.location.search = urlParams.toString();}
+
+  var imageUrl = "images/legend_"+myParam+".png"; // Replace with your image URL
+
+  var increaseButton = document.getElementById("increaseButton");
+  increaseButton.innerHTML = ">";
+  increaseButton.style.display = "inline";
+  increaseButton.addEventListener("click", () => incriese(myParam));
+
+  var decreaseButton = document.getElementById("decreaseButton");
+  decreaseButton.innerHTML = "<";
+  decreaseButton.style.display = "inline";
+  decreaseButton.addEventListener("click", () => decrease(myParam));
+
+  var image = document.getElementById("id1");
+  image.src = imageUrl; // Set the image source to the URL
+  image.alt = imageUrl;
+  image.addEventListener("click", own);
+
+  var ownv=getCookie("own"+myParam);
+  setowncolor(image, ownv);
+  function own(ownv) {if (ownv=="") {ownv="true";}else{ownv="";}setowncolor(image, ownv);setCookie("own"+myParam, ownv);}
+
+ 
+
+  var text = document.getElementById("text1");
+  getlegendname(myParam, text);
 }
