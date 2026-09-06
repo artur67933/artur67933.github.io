@@ -24,7 +24,7 @@ function getCookie(cname) {
   return "";
 }
 
-function setowncolor(own) {
+function setowncolor(image, own) {
     if (own=="") {
       image.style.backgroundColor = "red";}
     else{
@@ -59,12 +59,12 @@ function handleDocumentLoad() {
   if (myParam === null) {var l=getCookie("l");if(l==""){l=1;}else{l=parseInt(l);}urlParams.set('l', l);window.location.search = urlParams.toString();}
 
   var ownv=getCookie("own"+myParam);
-  setowncolor(ownv);
+  setowncolor(image, ownv);
   
   
 
 
-function own() {if (ownv=="") {ownv="true";}else{ own="";}setowncolor(ownv);setCookie("own"+myParam, ownv);}
+function own() {if (ownv=="") {ownv="true";}else{ own="";}setowncolor(image, ownv);setCookie("own"+myParam, ownv);}
 
 
 
