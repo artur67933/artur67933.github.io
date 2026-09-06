@@ -1,6 +1,3 @@
-//import { getlegendname } from '../lib.js';
-
-
 document.addEventListener ("DOMContentLoaded", handleDocumentLoad);
 
 function setCookie(cname, cvalue) {
@@ -25,11 +22,6 @@ function getCookie(cname) {
     }
   }
   return "";
-}
-
-function setowncolor(image, own) {
-  if (own=="") {image.style.backgroundColor = "red";}
-  else{image.style.backgroundColor = "green";}
 }
 
 function getlegendname(myParam,text) {
@@ -109,13 +101,10 @@ case "70":  text.innerHTML = "Qinghua & Baobao"; break;
 }
 }
 
-function handleDocumentLoad() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get('l');
-  if (myParam === null) {var l=getCookie("l");if(l==""){l=1;}else{l=parseInt(l);}urlParams.set('l', l);window.location.search = urlParams.toString();}
-
-  var imageUrl = "images/legend_"+myParam+".png"; // Replace with your image URL
-
+function setowncolor(image, own) {
+  if (own=="") {image.style.backgroundColor = "red";}
+  else{image.style.backgroundColor = "green";}
+}
 
 function incriese(myParam) {
   if (parseInt(myParam) < 70) { 
@@ -133,7 +122,13 @@ function decrease(myParam) {
 
   }
 }
+    
+function handleDocumentLoad() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('l');
+  if (myParam === null) {var l=getCookie("l");if(l==""){l=1;}else{l=parseInt(l);}urlParams.set('l', l);window.location.search = urlParams.toString();}
 
+  var imageUrl = "images/legend_"+myParam+".png"; // Replace with your image URL
 
   var increaseButton = document.getElementById("increaseButton");
   increaseButton.innerHTML = ">";
