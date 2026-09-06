@@ -152,7 +152,7 @@ function decrease(myParam) {
 
   var ownv=getCookie("own"+myParam);
   setowncolor(image, ownv);
-  function own(ownv) {if (ownv=="") {ownv="true";}else{ownv="";}setowncolor(image, ownv);setCookie("own"+myParam, ownv);}
+  function own() {if (ownv=="") {ownv="true";}else{ownv="";}setowncolor(image, ownv);setCookie("own"+myParam, ownv);}
 
  
 
