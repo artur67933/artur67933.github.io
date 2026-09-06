@@ -24,61 +24,47 @@ function getCookie(cname) {
   return "";
 }
 
+function setowncolor(own) {
+    if (own=="") {
+      image.style.backgroundColor = "red";}
+    else{
+      image.style.backgroundColor = "green";}
+    }
+    
 function handleDocumentLoad() {
 
-const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('l');
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get('l');
 
-var imageUrl = "images/legend_"+myParam+".png"; // Replace with your image URL
-var image = document.getElementById("id1");
-image.src = imageUrl; // Set the image source to the URL
-image.alt = imageUrl;
+  var imageUrl = "images/legend_"+myParam+".png"; // Replace with your image URL
+  var image = document.getElementById("id1");
+  image.src = imageUrl; // Set the image source to the URL
+  image.alt = imageUrl;
 
-var text = document.getElementById("text1");
-getlegendname();
+  var text = document.getElementById("text1");
+  getlegendname();
 
+  var increaseButton = document.getElementById("increaseButton"); //Targets div with ID increaseButton
+  var decreaseButton = document.getElementById("decreaseButton"); //Targets div with ID decreaseButton
 
-//Variable
+  decreaseButton.innerHTML = "<";
+  increaseButton.innerHTML = ">";
+  increaseButton.style.display = "inline";
+  decreaseButton.style.display = "inline";
+  //Event Listener
+  increaseButton.addEventListener("click", incriese); //When clicked this action is performed
+  decreaseButton.addEventListener("click", decrease); //When clicked this action is performed
+  image.addEventListener("click", own); //When clicked this action is performed
+  //Function
+  if (myParam === null) {var l=getCookie("l");if(l==""){l=1;}else{l=parseInt(l);}urlParams.set('l', l);window.location.search = urlParams.toString();}
 
-
-var increaseButton = document.getElementById("increaseButton"); //Targets div with ID increaseButton
-var decreaseButton = document.getElementById("decreaseButton"); //Targets div with ID decreaseButton
-
-decreaseButton.innerHTML = "<";
-increaseButton.innerHTML = ">";
-increaseButton.style.display = "inline";
-decreaseButton.style.display = "inline";
-//Event Listener
-increaseButton.addEventListener("click", incriese); //When clicked this action is performed
-decreaseButton.addEventListener("click", decrease); //When clicked this action is performed
-//Function
-
-
-image.addEventListener("click", own); //When clicked this action is performed
-
-if (myParam === null) {
-  var l=getCookie("l");
-  if(l==""){
-    l=1;
-  }
-  else{
-    l=parseInt(l);
-  }
-  urlParams.set('l', l);
-  window.location.search = urlParams.toString();
-}
-
-  var own=getCookie("own"+myParam);
-  setowncolor();
-function setowncolor() {
-  if (own=="") {
-    image.style.backgroundColor = "red";}
-  else{
-    image.style.backgroundColor = "green";}
-  }
+  var ownv=getCookie("own"+myParam);
+  setowncolor(ownv);
+  
+  
 
 
-function own() {if (own=="") {own="true";}else{ own="";}setowncolor();setCookie("own"+myParam, own);}
+function own() {if (ownv=="") {ownv="true";}else{ own="";}setowncolor(ownv);setCookie("own"+myParam, ownv);}
 
 
 
