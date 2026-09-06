@@ -1,10 +1,8 @@
 document.addEventListener ("DOMContentLoaded", handleDocumentLoad);
 
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue) {
   const d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  let expires = "expires="+ d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  document.cookie = cname + "=" + cvalue + ";path=/";
 }
 
 function getCookie(cname) {
@@ -38,6 +36,8 @@ getlegendname();
 
 
 //Variable
+
+
 var increaseButton = document.getElementById("increaseButton"); //Targets div with ID increaseButton
 var decreaseButton = document.getElementById("decreaseButton"); //Targets div with ID decreaseButton
 
@@ -50,8 +50,11 @@ increaseButton.addEventListener("click", incriese); //When clicked this action i
 decreaseButton.addEventListener("click", decrease); //When clicked this action is performed
 //Function
 
+
+image.addEventListener("click", own); //When clicked this action is performed
+
 if (myParam === null) {
-  var l=getCookie("l"); 
+  var l=getCookie("l");
   if(l==""){
     l=1;
   }
@@ -62,12 +65,26 @@ if (myParam === null) {
   window.location.search = urlParams.toString();
 }
 
+  var own=getCookie("own"+myParam);
+  setowncolor();
+function setowncolor() {
+  if (own=="") {
+    image.style.backgroundColor = "red";}
+  else{
+    image.style.backgroundColor = "green";}
+  }
+
+
+function own() {if (own=="") {own="true";}else{ own="";}setowncolor();setCookie("own"+myParam, own);}
+
+
+
 
 function incriese() { /*This changes the background colour to a white and makes text black*/
   if (parseInt(myParam) < 70) { 
    urlParams.set('l', parseInt(myParam) + 1);
    window.location.search = urlParams.toString();
-  setCookie("l", parseInt(myParam) + 1, 30);
+  setCookie("l", parseInt(myParam) + 1);
   }
 }
 
@@ -75,7 +92,7 @@ function decrease() {
   if (parseInt(myParam) > 1) { 
    urlParams.set('l', parseInt(myParam) - 1);
    window.location.search = urlParams.toString();
-   setCookie("l", parseInt(myParam) - 1, 30);
+   setCookie("l", parseInt(myParam) - 1);
 
   }
 }
